@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Logs
+*.log
+log/
+logs/
+
+# Environment
+.env
+.env.local
+
+# Build outputs
+dist/
+build/
+.vite/
+
+# Editor directories
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Suricata logs
+*.json
+eve.json
+
+# Temporary files
+*.tmp
+*.temp

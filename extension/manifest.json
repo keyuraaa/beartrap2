@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "BearTrap IDS",
+  "version": "1.0.0",
+  "description": "Real-time intrusion detection and website traffic monitoring system.",
+  "permissions": ["storage", "notifications", "tabs"],
+  "host_permissions": ["http://localhost:5173/*"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "BearTrap IDS"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}

@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Extension Popup Test - Dashboard Button</title>
+    <style>
+      body { font-family: Arial, Helvetica, sans-serif; background: #071027; color: #cfeff3; margin: 0; padding: 12px; width: 320px }
+      .popup h2{ color:#00f6d8; margin:0 0 8px 0 }
+      .popup h3{ color:#00f6d8; margin:12px 0 6px 0; font-size:16px }
+      .stat{ font-size:18px; margin-bottom:8px }
+
+      /* Admin Dashboard Button */
+      .dashboard-btn{
+        width: 100%;
+        padding: 10px 16px;
+        background: linear-gradient(135deg, #00f6d8 0%, #00d4ba 100%);
+        color: #071027;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 14px;
+        margin-bottom: 12px;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 8px rgba(0,246,216,0.3);
+      }
+      .dashboard-btn:hover{
+        background: linear-gradient(135deg, #00d4ba 0%, #00b89f 100%);
+        box-shadow: 0 4px 12px rgba(0,246,216,0.4);
+        transform: translateY(-1px);
+      }
+      .dashboard-btn:active{
+        transform: translateY(0) scale(0.98);
+        box-shadow: 0 2px 6px rgba(0,246,216,0.3);
+      }
+      #top{ list-style:none; padding-left:0 }
+      #top li{ padding:4px 0; border-bottom:1px solid rgba(255,255,255,0.03) }
+      .map{ width:100%; height:140px; border:1px solid rgba(255,255,255,0.04); border-radius:6px; overflow:hidden }
+
+      /* URL Submission Section */
+      .url-submit-section{ 
+        background: rgba(0,246,216,0.05); 
+        padding: 10px; 
+        border-radius: 6px; 
+        margin-bottom: 12px;
+        border: 1px solid rgba(0,246,216,0.1);
+      }
+      .url-form{ display: flex; gap: 6px; margin-bottom: 6px }
+      .url-input{ 
+        flex: 1; 
+        padding: 6px 10px; 
+        background: #071027; 
+        border: 1px solid rgba(0,246,216,0.3); 
+        border-radius: 4px; 
+        color: #cfeff3; 
+        font-size: 13px;
+      }
+      .url-input:focus{ 
+        outline: none; 
+        border-color: #00f6d8; 
+      }
+      .submit-btn{ 
+        padding: 6px 14px; 
+        background: #00f6d8; 
+        color: #071027; 
+        border: none; 
+        border-radius: 4px; 
+        cursor: pointer; 
+        font-weight: 600;
+        font-size: 13px;
+      }
+      .submit-btn:hover{ background: #00d4ba }
+      .submit-btn:active{ transform: scale(0.98) }
+      .status-msg{ 
+        font-size: 12px; 
+        padding: 4px 0; 
+        min-height: 16px;
+      }
+      .status-msg.success{ color: #00f6d8 }
+      .status-msg.error{ color: #ff6b6b }
+      
+      .test-info {
+        background: rgba(255,255,255,0.05);
+        padding: 10px;
+        border-radius: 6px;
+        margin-top: 12px;
+        font-size: 12px;
+      }
+      .test-info h4 {
+        color: #00f6d8;
+        margin: 0 0 8px 0;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="popup">
+      <h2>Honeypot</h2>
+      <button id="dashboardBtn" class="dashboard-btn">🎛️ Open Admin Dashboard</button>
+      <div id="live" class="stat">Active: 5  In:1024 B Out:2048 B</div>
+      
+      <!-- URL Submission Form -->
+      <div class="url-submit-section">
+        <h3>Submit Website URL</h3>
+        <form id="urlForm" class="url-form">
+          <input 
+            type="url" 
+            id="urlInput" 
+            placeholder="https://example.com" 
+            required 
+            class="url-input"
+          />
+          <button type="submit" class="submit-btn">Submit</button>
+        </form>
+        <div id="submitStatus" class="status-msg"></div>
+      </div>
+
+      <h3>Top IPs</h3>
+      <ul id="top">
+        <li>192.168.1.1 (45)</li>
+        <li>10.0.0.5 (32)</li>
+        <li>172.16.0.10 (28)</li>
+      </ul>
+      <h3>Mini Map</h3>
+      <div id="minimap" class="map">
+        <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100%" height="100%" fill="#071027" />
+          <g id="markers">
+            <circle cx="400" cy="200" r="8" fill="#00f6d8" />
+            <circle cx="600" cy="150" r="6" fill="#00f6d8" />
+            <circle cx="200" cy="250" r="10" fill="#00f6d8" />
+          </g>
+        </svg>
+      </div>
+      
+      <div class="test-info">
+        <h4>Testing Instructions:</h4>
+        <p>1. Hover over the dashboard button - should lift and brighten</p>
+        <p>2. Click the dashboard button - should scale down</p>
+        <p>3. Verify button width fills the popup (320px)</p>
+        <p>4. Check gradient colors and shadow effects</p>
+      </div>
+    </div>
+    <script>
+      const API = 'http://localhost:4000'
+
+      // Handle Admin Dashboard button click (simulated for testing)
+      document.getElementById('dashboardBtn').addEventListener('click', () => {
+        alert('Dashboard button clicked! In the actual extension, this would open http://localhost:5174 in a new tab.')
+        // In actual extension: chrome.tabs.create({ url: 'http://localhost:5174' })
+      })
+
+      // Handle URL submission (simulated for testing)
+      document.getElementById('urlForm').addEventListener('submit', async (e) => {
+        e.preventDefault()
+        const urlInput = document.getElementById('urlInput')
+        const statusMsg = document.getElementById('submitStatus')
+        const url = urlInput.value.trim()
+        
+        if(!url){
+          statusMsg.textContent = 'Please enter a URL'
+          statusMsg.className = 'status-msg error'
+          return
+        }
+        
+        statusMsg.textContent = '✓ URL submitted successfully! (Test mode)'
+        statusMsg.className = 'status-msg success'
+        urlInput.value = ''
+        setTimeout(() => { statusMsg.textContent = '' }, 3000)
+      })
+    </script>
+  </body>
+</html>

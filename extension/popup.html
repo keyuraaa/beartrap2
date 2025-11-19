@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Honeypot Popup</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="popup">
+      <h2>Beartrap</h2>
+      
+      <!-- Server Status -->
+      <div class="server-status" id="serverStatus">
+        <span id="serverStatusText">Checking server...</span>
+      </div>
+      
+      <!-- Start Server Button (shown when offline) -->
+      <button id="startServerBtn" class="start-server-btn" style="display: none;">🚀 Start Server (Run start-beartrap.bat)</button>
+      
+      <button id="dashboardBtn" class="dashboard-btn">🎛️ Open Admin Dashboard</button>
+      
+      <!-- Monitoring Controls -->
+      <div class="monitoring-controls">
+        <button id="startMonitoringBtn" class="control-btn start-btn">▶️ Start Monitoring</button>
+        <button id="stopMonitoringBtn" class="control-btn stop-btn">⏸️ Stop Monitoring</button>
+      </div>
+      
+      <div id="live" class="stat">Loading...</div>
+      
+      <!-- Current URL Info -->
+      <div id="urlInfoSection" class="url-info-section" style="display: none;">
+        <h3>📊 Current Page Info</h3>
+        <div id="urlInfo" class="url-info">
+          <div class="info-loading">Loading page information...</div>
+        </div>
+      </div>
+      
+      <!-- URL Submission Form -->
+      <div class="url-submit-section">
+        <h3>Submit Website URL</h3>
+        <form id="urlForm" class="url-form">
+          <input 
+            type="url" 
+            id="urlInput" 
+            placeholder="https://example.com" 
+            required 
+            class="url-input"
+          />
+          <button type="submit" class="submit-btn">Submit</button>
+        </form>
+        <div id="submitStatus" class="status-msg"></div>
+      </div>
+    </div>
+
+    <!-- Instructions Modal -->
+    <div id="instructionsModal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <h3>🚀 Start the Server</h3>
+        <div class="instructions">
+          <p><strong>Step 1:</strong> Press <kbd>Win + E</kbd> to open File Explorer</p>
+          <p><strong>Step 2:</strong> Navigate to or paste this path:</p>
+          <div class="path-box">
+            <code>C:\Users\User\Documents\GitHub\beartrap2</code>
+            <button id="copyPath" class="copy-btn">📋 Copy Path</button>
+          </div>
+          <p><strong>Step 3:</strong> Double-click <strong>start-beartrap.bat</strong></p>
+          <p><strong>Step 4:</strong> Wait 2-3 seconds - the extension will auto-detect the server!</p>
+        </div>
+        <button id="closeInstructions" class="close-btn">Got it!</button>
+      </div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
